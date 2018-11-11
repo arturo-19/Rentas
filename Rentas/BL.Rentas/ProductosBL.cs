@@ -48,7 +48,7 @@ namespace BL.Rentas
             return ListaProductos;
         }
 
-        public Resultado GuardarProducto(Producto producto)
+        public resultado GuardarProducto(Producto producto)
         {
             var resultado = Validar(producto);
             if (resultado.Exitoso == false)
@@ -85,9 +85,9 @@ namespace BL.Rentas
             return false;
         }
 
-        private Resultado Validar(Producto producto)
+        private resultado Validar(Producto producto)
         {
-            var resultado = new Resultado();
+            var resultado = new resultado();
             resultado.Exitoso = true;
 
             if (string.IsNullOrEmpty(producto.Descripcion) == true)
@@ -121,7 +121,7 @@ namespace BL.Rentas
         public bool Activo { get; set; }
     }
 
-    public class Resultado
+    public class resultado
     {
         public bool Exitoso { get; set; }
         public string Mensaje { get; set; }
