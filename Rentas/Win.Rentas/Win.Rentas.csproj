@@ -112,7 +112,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BL.Rentas.CiudadesBL.datasource" />
     <None Include="Properties\DataSources\BL.Rentas.Cliente.datasource" />
     <None Include="Properties\DataSources\BL.Rentas.ClientesBL.datasource" />
     <None Include="Properties\DataSources\BL.Rentas.Producto.datasource" />

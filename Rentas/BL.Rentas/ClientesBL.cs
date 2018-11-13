@@ -93,6 +93,12 @@ namespace BL.Rentas
                 resultado.Exitoso = false;
             }
 
+            if(cliente.CiudadId == 0)
+            {
+                resultado.Mensaje = "Seleccione una Ciudad";
+                resultado.Exitoso = false;
+            }
+
 
             return resultado;
         }
@@ -106,9 +112,19 @@ namespace BL.Rentas
         public string  Nombre { get; set; }
         public string  Correo { get; set; }
         public string  Telefono { get; set; }
+        public int CiudadId { get; set; }
+        public Ciudad Ciudad { get; set; }
         public string  Direccion { get; set; }
+        public byte[] foto { get; set; }
         public bool    Activo { get; set; }
+
+        public Cliente()
+        {
+            Activo = true;
+        }
     }
+
+
 
     public class Resultado
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Win.Rentas
     {
 
         ClientesBL _clientes;
+        CiudadesBL _ciudadesBL;
 
         public FormClientes()
         {
@@ -22,6 +24,9 @@ namespace Win.Rentas
 
             _clientes = new ClientesBL();
             listaClientesBindingSource.DataSource = _clientes.ObtenerClientes();
+
+            _ciudadesBL = new CiudadesBL();
+            listaCiudadesBindingSource.DataSource = _ciudadesBL.ObtenerCiudades();
         }
 
         private void FormClientes_Load(object sender, EventArgs e)
@@ -43,6 +48,15 @@ namespace Win.Rentas
         {
             listaClientesBindingSource.EndEdit();
             var cliente = (Cliente)listaClientesBindingSource.Current;
+
+            if(fotoPictureBox.Image != null)
+            {
+                cliente.foto = Program.imageToByteArray(fotoPictureBox.Image);
+            }
+            else
+            {
+                cliente.foto = null;
+            }
 
             var resultado = _clientes.GuardarCliente(cliente);
 
@@ -111,6 +125,46 @@ namespace Win.Rentas
         {
             DeshabilitarHabilitarBotones(true);
             Eliminar(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var cliente = (Cliente)listaClientesBindingSource.Current;
+
+            if(cliente != null)
+            {
+                openFileDialog1.ShowDialog();
+                var archivo = openFileDialog1.FileName;
+
+                if (archivo != "")
+                {
+                    var fileInfo = new FileInfo(archivo);
+                    var fileStream = fileInfo.OpenRead();
+
+                    fotoPictureBox.Image = Image.FromStream(fileStream);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cree un cliente nuevo antes de asignarle Imagen");
+            }
+
+        
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            fotoPictureBox.Image = null;
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void ciudadIdComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
